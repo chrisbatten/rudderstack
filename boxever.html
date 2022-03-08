@@ -1,0 +1,72 @@
+<html>
+<head>
+<script type="text/javascript">
+  (function() {
+    window._boxever_utils = {
+        pushEventQueue: function(eventRQ) {
+            var eventQueue = BoxeverStorage.get(EVENTS_Q_COOKIE_NAME);
+            var eventQueueObj = (eventQueue != null && eventQueue.length > 0) ? eventQueue : [];
+            eventQueueObj.push(eventRQ);
+            BoxeverStorage.set(EVENTS_Q_COOKIE_NAME, eventQueueObj, JSTORAGE_OPTIONS);
+        },
+        processEventQueue: function(processCurrentPage) {
+            var eventQueue = BoxeverStorage.get(EVENTS_Q_COOKIE_NAME);
+            if (eventQueue != null && eventQueue.length) {
+                BoxeverStorage.set(EVENTS_Q_COOKIE_NAME, [], JSTORAGE_OPTIONS);
+                var eventsToSend = [];
+                for(var i = 0; i < eventQueue.length; i++) {
+                    if (eventQueue[i]) {
+                        eventsToSend.push(eventQueue[i]);
+                    }
+                }
+                //send events synchronously
+                (function callback() {
+                    if (eventsToSend.length > 0) {
+                        try {
+                            var event = eventsToSend.shift();
+                            Boxever.eventCreate(event, callback, "json");
+                        } catch (e) {
+                            BoxeverJERS.errors.push(e);
+                            callback();
+                        }
+                    } else {
+                        //continue processing of the current page after all the event from the queue have been sent
+                        processCurrentPage();
+                    }
+                })();
+            } else {
+                processCurrentPage();
+            }
+        },
+        clearEventQueue: function() {
+            var eventQueueObj = [];
+            BoxeverStorage.set(EVENTS_Q_COOKIE_NAME, eventQueueObj, JSTORAGE_OPTIONS);
+        }
+    };
+
+    window._boxever_settings = {
+        client_key: "ctvpoc5o2l014msjijks4q1uqhvd492m", //Set to the clientKey associated with the non-production or production environment
+        target: "https://api.boxever.com/v1.2", //Replace with your API target endpoint specific to your data center region
+        cookie_domain: "cytivalifesciences.io", //to be dynamically set based on the domain of the site being used. 
+        javascriptLibraryVersion: "1.4.8",
+        pointOfSale: "home",
+        web_flow_target: "https://d35vb5cccm4xzp.cloudfront.net"
+    };
+
+    // load boxever.js
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = 'https://d1mj578wat5n4o.cloudfront.net/boxever-' + window._boxever_settings.javascriptLibraryVersion + '.min.js';
+    var x = document.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
+})();
+</script>
+
+</head>
+
+
+<body>
+    <p>test</p>
+</body>
+</html>
