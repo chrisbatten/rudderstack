@@ -8,13 +8,10 @@ MIXPANEL_CUSTOM_LIB_URL:"file:"===f.location.protocol&&"//cdn.mxpnl.com/libs/mix
 // Enabling the debug mode flag is useful during implementation,
 // but it's recommended you remove it for production
 mixpanel.init('5677130f0bcb3fb96b563f8246065e38', {debug: false}); 
-		$('.mp-click-track').on('click', function () {
-    eventName = $(this).data("event-name");
-	mixpanel.track(eventName); 
-});
+mixpanel.track_links("#quoteRedemption","Clicked Quote Fulfillment on sidebar");
 </script>
 </head>
 <body>
-    <a href="#hello" class=".mp-click-track" data-event-name="Clicked quote sidebar link">click me</a>
+    <a href="#hello" id="quoteRedemption" data-event-name="Clicked quote sidebar link">click me</a>
 </body>
 </html>
