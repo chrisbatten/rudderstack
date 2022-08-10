@@ -1,0 +1,20 @@
+<html>
+<head>
+    <script type="text/javascript" async="" src="http://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"></script>
+<script>
+    mixpanel.init('5677130f0bcb3fb96b563f8246065e38', {debug: true}); 
+
+  
+    $('.mp-click-track').on('click', function () {
+    eventName = $(this).data("event-name");
+	mixpanel.track(eventName); 
+});
+</script>
+
+
+
+</head>
+<body>
+    <a href="#hello" class=".mp-click-track" data-event-name="Clicked quote sidebar link">click me</a>
+</body>
+</html>
