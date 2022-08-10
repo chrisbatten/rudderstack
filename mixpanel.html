@@ -8,17 +8,11 @@ MIXPANEL_CUSTOM_LIB_URL:"file:"===f.location.protocol&&"//cdn.mxpnl.com/libs/mix
 // Enabling the debug mode flag is useful during implementation,
 // but it's recommended you remove it for production
 mixpanel.init('5677130f0bcb3fb96b563f8246065e38', {debug: false}); 
-mixpanel.track_links("#quoteRedemption","Clicked Quote Fulfillment on sidebar");
-		
-		
+mixpanel.track_links('#orderbtn', 'Clicked Quote Fulfillment on sidebar');		
 </script>
-	<script type="text/javascript">
-$("#qf-track").click(function() {
-mixpanel.track("Clicked Quote Fulfillment on sidebar"); 
-});
-</script>
+
 </head>
 <body>
-    <a href="http://www.cytivalifesciences.com" onclick="qf-track()">click me</a>
+    <a href="http://www.cytivalifesciences.com" id="orderbtn">click me</a>
 </body>
 </html>
