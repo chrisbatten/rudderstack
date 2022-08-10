@@ -2,9 +2,7 @@
 <head>
     <script type="text/javascript" async="" src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js"></script>
 <script>
-    mixpanel.init('5677130f0bcb3fb96b563f8246065e38', {debug: true}); 
-
-  
+	mixpanel.init("5677130f0bcb3fb96b563f8246065e38");
     $('.mp-click-track').on('click', function () {
     eventName = $(this).data("event-name");
 	mixpanel.track(eventName); 
